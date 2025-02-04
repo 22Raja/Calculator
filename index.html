@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<head>
+    <title> CALCULATOR  </title>
+</head>
+
+<style>
+
+    .cal{
+
+        text-align: center;
+        border: 2px;
+        padding: 10px;
+        border-color: black;
+        border-style:double;
+    }
+
+
+    .calrow{
+        padding: 10px;
+
+    }
+    .first{
+        color :  black;
+        border-radius: 13%;
+        font-size: 45px;
+
+    }
+
+    button:active {
+        background-color: lightcyan;
+    }
+
+
+    .second{
+        color :  black;
+        border-radius: 13%;
+        font-size: 45px;
+    }
+
+    .third{
+        color :  black;
+        border-radius: 13%;
+        font-size: 45px;
+    }
+
+    .fourth{
+        color :  black;
+        border-radius: 13%;
+        font-size: 45px;
+    }
+
+    
+          #fname {
+            width: 250px; /* Set width of the input */
+            padding: 10px; /* Add padding inside the input box */
+            font-size: 16px; /* Font size */
+            border: 2px solid #ccc; /* Border color */
+            border-radius: 5px; /* Rounded corners */
+            background-color: #f9f9f9; /* Background color */
+            color: #333; /* Text color */
+          }
+
+
+
+
+</style>
+
+
+<body style="background-color: rgba(209, 204, 195, 0.253);"> 
+
+    <H1 style="text-align: center " > Keerthi Raja CALCULATOR</H1>
+
+
+    <div  class= "cal"  >  
+
+        
+
+        <input  type="text" id="fname"  value=" "><br>
+
+
+
+        <div class = "calrow" > 
+
+            <form>
+                <input type="button"  class="first"  value= 7 onclick="msg(this)">
+                <input type="button"  class="first"  value= 8 onclick="msg(this)">
+                <input type="button"  class="first"  value= 9 onclick="msg(this)">
+                <input type="button"  class="first"  value= "+" onclick="msg(this)">
+
+            </form>
+        </div>
+
+        <div  class = "calrow" > 
+
+            <form>
+                <input type="button"  class="second"  value= 4 onclick="msg(this)">
+                <input type="button"  class="second"  value= 5 onclick="msg(this)">
+                <input type="button"  class="second"  value= 6 onclick="msg(this)">
+                <input type="button"  class="second"  value= "-" onclick="msg(this)">
+
+            </form>
+
+
+        </div>
+
+        <div class = "calrow" > 
+
+            <form>
+                <input type="button"  class="third"  value= 1 onclick="msg(this)">
+                <input type="button"  class="third"  value= 2 onclick="msg(this)">
+                <input type="button"  class="third"  value= 3 onclick="msg(this)">
+                <input type="button"  class="third"  value= "x" onclick="msg(this)">
+
+            </form>
+
+        </div>
+
+
+        <div class = "calrow" > 
+            <form>
+                <input type="button"  class="fourth"   value= 0 onclick="msg(this)" >
+                <input type="button"  class="fourth"  value= '=' onclick="msg(this)">
+
+
+            </form>
+
+        </div>  
+
+
+
+
+    
+    </div>
+
+
+    <script type="text/javascript">
+
+        let total = "" ; 
+        let second = "" ;
+        let operation = "";
+
+        function msg(button) {
+            let value =  button.value ; 
+
+                if (value !="="){ 
+                 
+                    document.getElementById("fname").value += value;
+                }
+                
+
+               
+
+
+                if(value != "+" && value != "-"  && value !=  "x" && operation  == '' ){
+
+                    total += value;
+                
+                }
+                
+                else if (value == "+" || value == "-" || value == "x" ) { 
+                        if (operation == "+" ){ 
+                            total = Number(total) + Number(second);
+                            console.log(second)
+                        }
+                        else if (operation == "-" ){ 
+                            total = Number(total) - Number(second);
+                        }
+                        else if (operation == "x" ){ 
+                            total = Number(total) * Number(second);
+                        }   
+                        operation = ""
+                        operation += value
+                        second = ''
+                    }
+                else if (value =="="){
+                      
+
+                    if (second == '') {
+                        document.getElementById("fname").value = total
+                    } 
+                    if (operation == "+" ){ 
+                        total = Number(total) +  Number(second);
+                        
+                        document.getElementById("fname").value = total
+                    }
+                    else if (operation == "-" ){ 
+                        total = Number(total) - Number(second);
+
+                        document.getElementById("fname").value = total
+                    }
+
+                    else if (operation == "x" ){
+                        total = Number(total) * Number(second);
+                        document.getElementById("fname").value = total
+                    
+                    }  
+                    operation = ""
+                    second = ''
+                }
+                else if (operation ==  ""   ) 
+                {
+                    console.log("Raja")
+                    operation += value;
+                }
+                
+
+                else{ 
+                    second += value;
+
+
+                }
+
+            }
+
+
+      //  let buttons =  document.getElementsByClassName('fourth');
+
+      //  console.log( buttons.value );
+
+        //    console.log("Hello ");
+
+
+
+        
+
+       // document.getElementById("fourth").addEventListener("click", function() {
+        // alert("Button clicked!");
+        
+
+    </script>
+
+
+</body>
+
+
+</html>
+
+
