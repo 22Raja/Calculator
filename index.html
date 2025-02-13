@@ -109,7 +109,7 @@
                 <input type="button"  class="third"  value= 1 onclick="msg(this)">
                 <input type="button"  class="third"  value= 2 onclick="msg(this)">
                 <input type="button"  class="third"  value= 3 onclick="msg(this)">
-                <input type="button"  class="third"  value= "x" onclick="msg(this)">
+                <input type="button"  class="third"  value= "*" onclick="msg(this)">
 
             </form>
 
@@ -120,7 +120,7 @@
             <form>
                 <input type="button"  class="fourth"   value= 0 onclick="msg(this)" >
                 <input type="button"  class="fourth"  value= '=' onclick="msg(this)">
-
+                <input type="button"  class="fourth"  value= 'C' onclick="msg(this)">
 
             </form>
 
@@ -133,106 +133,70 @@
     </div>
 
 
-    <script type="text/javascript">
 
-        let total = "" ; 
-        let second = "" ;
-        let operation = "";
-
-        function msg(button) {
-            let value =  button.value ; 
-
-                if (value !="="){ 
-                 
-                    document.getElementById("fname").value += value;
-                }
-                
-
-               
-
-
-                if(value != "+" && value != "-"  && value !=  "x" && operation  == '' ){
-
-                    total += value;
-                
-                }
-                
-                else if (value == "+" || value == "-" || value == "x" ) { 
-                        if (operation == "+" ){ 
-                            total = Number(total) + Number(second);
-                            console.log(second)
-                        }
-                        else if (operation == "-" ){ 
-                            total = Number(total) - Number(second);
-                        }
-                        else if (operation == "x" ){ 
-                            total = Number(total) * Number(second);
-                        }   
-                        operation = ""
-                        operation += value
-                        second = ''
-                    }
-                else if (value =="="){
-                      
-
-                    if (second == '') {
-                        document.getElementById("fname").value = total
-                    } 
-                    if (operation == "+" ){ 
-                        total = Number(total) +  Number(second);
-                        
-                        document.getElementById("fname").value = total
-                    }
-                    else if (operation == "-" ){ 
-                        total = Number(total) - Number(second);
-
-                        document.getElementById("fname").value = total
-                    }
-
-                    else if (operation == "x" ){
-                        total = Number(total) * Number(second);
-                        document.getElementById("fname").value = total
-                    
-                    }  
-                    operation = ""
-                    second = ''
-                }
-                else if (operation ==  ""   ) 
-                {
-                    console.log("Raja")
-                    operation += value;
-                }
-                
-
-                else{ 
-                    second += value;
-
-
-                }
-
-            }
-
-
-      //  let buttons =  document.getElementsByClassName('fourth');
-
-      //  console.log( buttons.value );
-
-        //    console.log("Hello ");
-
-
-
-        
-
-       // document.getElementById("fourth").addEventListener("click", function() {
-        // alert("Button clicked!");
-        
-
-    </script>
 
 
 </body>
 
+<script> 
+
+   function msg(val){
+        value = val.value
+
+        if (value == '*' || value == "-" || value == '+') {
+                check = document.getElementById('fname').value.slice(-1)
+                if (check == '*' || check == '-' || check ==  '+') {
+                    temp = document.getElementById('fname').value
+                    document.getElementById('fname').value =  temp.slice(0 ,-1) + value
+
+                }
+                else{
+                    document.getElementById('fname').value += value
+                }
+            }
+
+
+        else if (value == '=' ){
+            let fname = document.getElementById('fname').value;
+            let check = fname.slice(-1)
+               if (check == '*' || check == '-' || check ==  '+') {
+                    fname =  fname.slice(0 ,-1) 
+
+                }
+            if (fname !=' '){
+                fetch("http://localhost:5000/raja", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({equ : fname })
+                })
+                .then((response) => response.json())
+                .then((data) => document.getElementById('fname').value = data['message'] )
+                .catch((error) => console.error("Error:", error));}
+        }
+        else if (value == 'C' ){
+            
+            document.getElementById('fname').value =''
+        }  
+        else{
+
+            document.getElementById('fname').value += value
+        }
+
+
+
+
+
+
+    }  
+
+
+
+
+
+</script>
+
 
 </html>
-
 
